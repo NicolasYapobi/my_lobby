@@ -29,5 +29,12 @@ class Lobby:
             return True, "User removed successfully"
         return False, "User not found"
 
-    def get_users(self):
-        return [user.to_dict() for user in self.users.values()]
+    def get_users(self, sort_by="connected_at"):
+        users_list = [user.to_dict() for user in self.users.values()]
+
+        if sort_by == "username":
+            users_list.sort(key=lambda x: x["username"])
+        else:
+            users_list.sort(key=lambda x: x["connected_at"])
+
+        return users_list

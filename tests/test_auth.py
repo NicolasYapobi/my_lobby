@@ -12,14 +12,18 @@ def client():
             yield client
 
 
-def test_login_success(client):
-    response = client.post("/auth/login", json={"username": "testuser"})
-    assert response.status_code == 200
+def test_login_logout_success(client):
+    login_response = client.post("/auth/login", json={"username": "testuser"})
+    assert login_response.status_code == 200
 
     with client.session_transaction() as sess:
         assert sess["username"] == "testuser"
 
-    client.post("/auth/logout")
+    logout_response = client.post("/auth/logout")
+    assert logout_response.status_code == 200
+
+    with client.session_transaction() as sess:
+        assert "username" not in sess
 
 
 def test_login_missing_username(client):
@@ -54,15 +58,6 @@ def test_login_invalid_username(client):
 
     json_data = response.get_json()
     assert "Username can only contain letters and numbers" in json_data["message"]
-
-
-def test_logout_success(client):
-    client.post("/auth/login", json={"username": "testuser"})
-
-    logout_response = client.post("/auth/logout")
-    assert logout_response.status_code == 200
-    with client.session_transaction() as sess:
-        assert "username" not in sess
 
 
 def test_logout_not_logged_in(client):
