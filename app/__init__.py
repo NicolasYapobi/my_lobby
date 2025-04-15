@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 from app.routes.users import users_bp
 from app.routes.auth import auth_bp
 import os
+
 socketio = SocketIO()
 
 
