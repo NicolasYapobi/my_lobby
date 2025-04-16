@@ -1,10 +1,10 @@
 from flask import Flask
-from flask_socketio import SocketIO
 from app.routes.users import users_bp
 from app.routes.auth import auth_bp
-import os
+from app.socket import socketio
+from app.routes.messaging import messaging_bp
 
-socketio = SocketIO()
+import os
 
 
 def create_app():
@@ -13,6 +13,8 @@ def create_app():
 
     app.register_blueprint(users_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(messaging_bp)
+
     socketio.init_app(app)
 
     return app

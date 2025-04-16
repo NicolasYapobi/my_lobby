@@ -1,4 +1,5 @@
 from app.models.user import User
+from app.socket import socketio
 
 
 class Lobby:
@@ -38,3 +39,14 @@ class Lobby:
             users_list.sort(key=lambda x: x["connected_at"])
 
         return users_list
+
+    def share_message(self, sender, content):
+
+        message_data = {
+            "content": content,
+            "sender": sender,
+            "include_self": False,
+        }
+
+        socketio.emit("message", message_data)
+        return True, "Message sent successfully"
