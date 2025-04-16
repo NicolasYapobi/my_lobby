@@ -64,10 +64,12 @@ commands = {
 
 
 def parse_input(user_input):
-    command = user_input.split(" ")[0]
+    split_input = user_input.split(maxsplit=1)
+    command = split_input[0]
+
     if command in commands:
-        if command == "/send":
-            message = user_input.split(" ")[1]
+        if command == "/send" and len(split_input) > 1:
+            message = split_input[1]
             command_send(message)
         else:
             commands[command]()
