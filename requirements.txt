@@ -1,5 +1,9 @@
 Flask
 flask-socketio
+socketio
+
 
 pytest
 black
+
+python-dotenv

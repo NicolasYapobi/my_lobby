@@ -14,6 +14,7 @@ def command_help():
     print("/help: show this help")
     print("/list: list all users")
     print("/quit: exit the program")
+    print("/send <message>: send a message to all users")
 
 
 def command_list():

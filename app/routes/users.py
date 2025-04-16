@@ -8,7 +8,7 @@ users_bp = Blueprint("users", __name__, url_prefix="/users")
 @users_bp.route("/", methods=["GET"])
 def get_users():
     if "username" not in session:
-        return jsonify({"message": "Unauthorized"}), 401
+        return APIError(401, "Unauthorized").to_response()
 
     valid_sort_fields = ["username", "connected_at"]
     sort_by = request.args.get("sort_by")
