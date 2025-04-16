@@ -11,9 +11,9 @@ def get_users():
         return APIError(401, "Unauthorized").to_response()
 
     valid_sort_fields = ["username", "connected_at"]
-    sort_by = request.args.get("sort_by")
+    sort_by = request.args.get("sort_by", default="connected_at")
 
-    if sort_by not in valid_sort_fields and sort_by is not None:
+    if sort_by not in valid_sort_fields:
         return APIError(
             400,
             f"Invalid sort field. you can use only use these fields: {', '.join(valid_sort_fields)}",

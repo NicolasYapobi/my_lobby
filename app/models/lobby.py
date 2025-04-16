@@ -32,12 +32,7 @@ class Lobby:
 
     def get_users(self, sort_by="connected_at"):
         users_list = [user.to_dict() for user in self.users.values()]
-
-        if sort_by == "username":
-            users_list.sort(key=lambda x: x["username"])
-        else:
-            users_list.sort(key=lambda x: x["connected_at"])
-
+        users_list.sort(key=lambda x: x[sort_by])
         return users_list
 
     def share_message(self, sender, content):
